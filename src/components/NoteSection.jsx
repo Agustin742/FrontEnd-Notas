@@ -1,8 +1,16 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
 import Mansory from './Mansory'
-import notes from '../data/note.mockup.js'
+import getNotes from '../utils/getNotes.js'
 
 const NoteSection = () => {
+
+  const [notes, setNotes] = useState([])
+
+  useEffect(() => {
+      getNotes(setNotes)
+  }, [])
+
+  console.log(notes);
 
   return (
     <div className='w-full bg-[#2d2d29] text-[#dfece6]'>

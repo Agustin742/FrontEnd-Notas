@@ -1,6 +1,7 @@
 import BaseModal from "./BaseModal"
 
 const CreateModal = ({ isOpen, onClose }) => {
+
   return (
     <BaseModal isOpen={isOpen} onClose={onClose}>
       <h2 className="text-lg font-semibold mb-3">

@@ -1,14 +1,6 @@
-import { useEffect, useState } from 'react'
 import Mansory from './Mansory'
-import getNotes from '../utils/getNotes.js'
 
-const NoteSection = () => {
-
-  const [notes, setNotes] = useState([])
-
-  useEffect(() => {
-      getNotes(setNotes)
-  }, [])
+const NoteSection = ( {notes} ) => {
 
   console.log(notes);
 

@@ -1,23 +1,23 @@
-let urlProductos
+let urlNotes
 
 if (import.meta.env.MODE === 'development') {
-urlProductos = import.meta.env.VITE_BACKEND
+urlNotes = import.meta.env.VITE_BACKEND
 } else {
-urlProductos = import.meta.env.VITE_BACKEND_CLOUD
+urlNotes = import.meta.env.VITE_BACKEND_CLOUD
 }
 
-const getNotes = async (setProductos) => {
+const getNotes = async (setNotes) => {
 
 try {
 
-    const res = await fetch(urlProductos)
+    const res = await fetch(urlNotes)
 
     if (!res.ok) {
     throw new Error('No se pudo obtener los productos')
     }
     
     const prods = await res.json()
-    setProductos(prods.data) 
+    setNotes(prods.data) 
 
 } catch (error) {
     console.error(error)

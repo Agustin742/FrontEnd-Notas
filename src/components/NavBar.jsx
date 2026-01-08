@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import CreateModal from './CreateModal'
 
-const NavBar = () => {
+const NavBar = ( {setNotes} ) => {
   const [createTitle, setCreateTitle] = useState(null)
 
   const createNote = (id) => {
@@ -52,6 +52,7 @@ const NavBar = () => {
           <CreateModal 
           isOpen={createTitle ==! false }
           onClose={() => setCreateTitle(null)}
+          setNotes={setNotes}
           />
 
         </div>

@@ -22,7 +22,7 @@ const Mansory = ({ items }) => {
 
           return (
             <div
-              key={i.id}
+              key={i._id}
               className={`group relative mb-4 break-inside-avoid p-3 rounded-lg border-4 bg-black/30 hover:scale-102 duration-300 hover:shadow-md hover:shadow-white/10 ${
                 hasTag ? "text-white" : "text-[#dfece6]"
               }`}

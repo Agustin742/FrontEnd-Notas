@@ -1,39 +1,41 @@
 import { useState } from "react"
 import BaseModal from "./BaseModal"
 import createNote from "../utils/createNotes"
+import createTag from "../utils/createTag"
 
-const CreateModal = ({ isOpen, onClose, setNotes }) => {
+const CreateModal = ({ isOpen, onClose, setNotes, setTags}) => {
 
   const [title, setTitle] = useState("")
   const [content, setContent] = useState("")
-  const [tags, setTags] = useState([])
+  const [tagsModal, setTagsModal] = useState([])
   const [nameTag, setNameTag] = useState("")
-  const [color, setColor] = useState(null)
+  const [colorTag, setColorTag] = useState(null)
 
   const handleCreate = async () => {
   await createNote(title, content, setNotes)
+  await createTag(tagsModal, setTags)
   resetForm()
   onClose()
   }
 
   const handleAddTag = () => {
-  if (!nameTag || !color) return
+  if (!nameTag || !colorTag) return
 
-  setTags(prev => [
+  setTagsModal(prev => [
     ...prev,
-    { name: nameTag, color }
+    { name: nameTag, color: colorTag }
   ])
 
   setNameTag("")
-  setColor(null)
+  setColorTag(null)
   }
 
   const resetForm = () => {
   setTitle("")
   setContent("")
   setNameTag("")
-  setColor(null)
-  setTags([])
+  setColorTag(null)
+  setTagsModal([])
   }
 
   const colors = {
@@ -94,9 +96,11 @@ const CreateModal = ({ isOpen, onClose, setNotes }) => {
         className="block"
         >Color:</label>
           <select
-          onChange={(e) => setColor(colors[e.target.value])}
-          className={`border p-2 rounded ${color}`}
+          name="color"
+          onChange={(e) => setColorTag(colors[e.target.value])}
+          className={`border p-2 rounded ${colorTag}`}
         >
+          
           {Object.keys(colors).map(c => (
             <option key={c}
             className={`bg-white text-black`}
@@ -114,7 +118,7 @@ const CreateModal = ({ isOpen, onClose, setNotes }) => {
         
 
         <div className="flex flex-wrap gap-2 mt-3">
-          {tags.map((tag, i) => (
+          {tagsModal.map((tag, i) => (
             <span
               key={i}
               className={`px-2 py-1 rounded text-sm text-white ${tag.color}`}

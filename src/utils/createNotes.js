@@ -6,35 +6,34 @@ urlNotes = import.meta.env.VITE_BACKEND_NOTES
 urlNotes = import.meta.env.VITE_BACKEND_CLOUD
 }
 
-const createNote = async (title, content, setNotes) => {
-
-const newNote = {title, content}
-
-
-try {
-
+const createNote = async (noteData, setNotes) => {
+  try {
     const options = {
-        method: 'POST',
-        headers: { 'content-type': 'application/json'},
-        body: JSON.stringify(newNote)
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(noteData)
     }
 
-    const res = await fetch(urlNotes , options)
+    const res = await fetch(urlNotes, options)
 
     if (!res.ok) {
-    throw new Error('No se pudo obtener los productos')
+      throw new Error('Error al crear la nota')
     }
-    
-    const prods = await res.json()
-    setNotes(prev => Array.isArray(prev)
-    ? [...prev, prods.data]
-    : [prods.data]
-)
 
+    const response = await res.json()
 
-} catch (error) {
+    setNotes(prev =>
+      Array.isArray(prev)
+        ? [...prev, response.data]
+        : [response.data]
+    )
+
+    return response.data
+
+  } catch (error) {
     console.error(error)
-}
+    throw error
+  }
 }
 
 export default createNote

@@ -12,11 +12,26 @@ const CreateModal = ({ isOpen, onClose, setNotes, setTags}) => {
   const [colorTag, setColorTag] = useState(null)
 
   const handleCreate = async () => {
-  await createNote(title, content, setNotes)
-  await createTag(tagsModal, setTags)
-  resetForm()
-  onClose()
-  }
+    const createdTags = await createTag(tagsModal)
+
+    setTags(prev => [...prev, ...createdTags])
+
+    const tagIds = createdTags.map(tag => tag._id)
+
+    await createNote(
+      {
+        title,
+        content,
+        tags: tagIds
+      },
+      setNotes
+    )
+
+    resetForm()
+    onClose()
+}
+
+
 
   const handleAddTag = () => {
   if (!nameTag || !colorTag) return

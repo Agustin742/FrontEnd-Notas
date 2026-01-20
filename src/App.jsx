@@ -15,7 +15,6 @@ const App = () => {
       getTags(setTags)
   }, [])
 
-  console.log(tags);
 
   return (
     <div className='bg-[#2d2d29] h-screen'>
